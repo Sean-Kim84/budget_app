@@ -2,7 +2,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/app.js',
   output: {
     path: path.join(__dirname, 'public'),
     filename: 'bundle.js'
@@ -23,6 +23,7 @@ module.exports = {
   },
   devtool: 'cheap-module-eval-source-map', // chrome에서 어디에 error가 발생했는지 정확하게 알려준다
   devServer: {
-    contentBase: path.join(__dirname, 'public') // package.json 에 명령어설정해야 한다
+    contentBase: path.join(__dirname, 'public'), // package.json 에 명령어설정해야 한다
+    historyApiFallback: true
   }
 };
