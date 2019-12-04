@@ -1,10 +1,20 @@
 import React from 'react';
+import moment from 'moment';
+import { SingleDatePicker } from 'react-dates';
+import 'react-dates/lib/css/_datepicker.css';
+
+// const date = new Date();
+const now = moment();  
+console.log (now);
+console.log(now.format('MMM Do, YYYY'));
 
 class ExtenseForm extends React.Component {
   state = {
     description: '',
     amount: '',
-    note: ''
+    note: '',
+    createdAt: moment(),
+    calenderFocused: false
   };
 
   onDescriptionChange = (e) => {
@@ -25,6 +35,13 @@ class ExtenseForm extends React.Component {
     this.setState(() => ({ note }))
   };
 
+  onDateChange = (createdAt) => {
+    this.setState(() => ({ createdAt }))
+  } 
+  onFocusChange = ({ focused }) => {
+    this.setState(() => ({calenderFocused: focused}))
+  }
+
   render(){
     return (
       <div>
@@ -42,7 +59,15 @@ class ExtenseForm extends React.Component {
             value={this.state.amount}
             onChange={this.onAmountChange}
           />
-          <input />
+          <SingleDatePicker
+            date={this.state.createdAt}
+            onDateChange={this.onDateChange}
+            focused={this.state.calenderFocused}
+            onFocusChange={this.onFocusChange}
+            numberOfMonths={1}
+            isOutsideRange={() => false} // 지난 날은 pick 불가
+            
+          />
           <textarea
             placeholder="Add a note for your expense"
             value={this.state.note}
