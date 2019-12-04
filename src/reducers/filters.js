@@ -12,7 +12,7 @@ export default (state = filterReducerDefaultState, action) => {
         ...state,
         text: action.text
       }
-    case 'SORT_BY_AMMOUNT': 
+    case 'SORT_BY_AMOUNT': 
       return {
         ...state,
         sortBy: 'amount'
