@@ -14,7 +14,8 @@ class ExtenseForm extends React.Component {
     amount: '',
     note: '',
     createdAt: moment(),
-    calenderFocused: false
+    calenderFocused: false,
+    error: ''
   };
 
   onDescriptionChange = (e) => {
@@ -24,7 +25,7 @@ class ExtenseForm extends React.Component {
 
   onAmountChange = (e) => {
     const amount = e.target.value;
-    if(amount.match(/^\d*(\.\d{0,2})?$/)){ // 소수점 둘째 자리까지만
+    if(!amount || amount.match(/^\d{1,}(\.\d{0,2})?$/)){ // 소수점 둘째 자리까지만
       this.setState(() => ({ amount }))
     }  
   };
@@ -36,16 +37,40 @@ class ExtenseForm extends React.Component {
   };
 
   onDateChange = (createdAt) => {
-    this.setState(() => ({ createdAt }))
+    if(createdAt) {
+      this.setState(() => ({ createdAt }))
+    }
   } 
   onFocusChange = ({ focused }) => {
     this.setState(() => ({calenderFocused: focused}))
   }
 
+  onSubmit = (e) => {
+    e.preventDefault();
+    if(!this.state.description || !this.state.amount){
+      // set error state equal to 'Please Provide description and amount'
+      this.setState(() => ({
+        error: 'Please Provide description and amount'
+      }))
+    } else { 
+      this.setState(() => ({
+        error: ''
+      }))
+      this.props.onSubmit({
+        description: this.state.description,
+        amount: parseFloat(this.state.amount,10) * 100,
+        note: this.state.note,
+        createdAt: this.state.createdAt.valueOf()
+      }) 
+    }
+
+  }
+
   render(){
     return (
       <div>
-        <form>
+        {this.state.error && <p>{this.state.error}</p>}
+        <form onSubmit={this.onSubmit}>
           <input 
             type="text" 
             placeholder="Description"

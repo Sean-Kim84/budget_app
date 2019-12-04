@@ -1,11 +1,20 @@
 import React from 'react';
-import ExpenseForm from './ExpenseForm'
 import { connect } from 'react-redux';
+import ExpenseForm from './ExpenseForm'
+import { addExpense } from '../actions/expenses'
 
-const AddExpensePage =  () => (
+const AddExpensePage =  (props) => (
   <div>
-    <ExpenseForm />
+    <h1>Add Expense</h1>
+    <ExpenseForm 
+      onSubmit={(expense) => {
+        console.log(expense)
+        props.dispatch(addExpense(expense));
+        props.history.push('/'); // 동작이 완료되면 '/' 경로로 이동하게 해준다
+      }}
+    />
   </div>
 );
 
-export default (AddExpensePage);
+
+export default connect()(AddExpensePage);
