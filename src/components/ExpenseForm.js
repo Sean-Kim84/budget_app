@@ -15,7 +15,7 @@ class ExtenseForm extends React.Component {
       description: props.expense ? props.expense.description : '',
       amount: props.expense ? (props.expense.amount / 100).toString() : '',
       note: props.expense ? props.expense.note : '',
-      createdAt: props.expense ? moment(props.expense.createdAt) :moment(),
+      createdAt: props.expense ? moment(props.expense.createdAt) : moment(),
       calenderFocused: false,
       error: ''
     }
