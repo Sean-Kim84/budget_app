@@ -1,8 +1,9 @@
 import React from 'react';
+import ConnectedExpenseList from './ExpenseList';
 
 const ExpenseDashBoardPage =  () => (
   <div>
-    This is for test
+    <ConnectedExpenseList  />
   </div>
 );
 
