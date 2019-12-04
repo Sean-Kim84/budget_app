@@ -10,10 +10,14 @@ import './styles/styles.scss';
 
 const store = configureStore();
 
-
-store.dispatch(addExpense({description: 'Water bill'}));
+store.dispatch(addExpense({description: 'Water bill', amount: 4500}));
 store.dispatch(addExpense({description: 'Gate bill'}));
 store.dispatch(setTextFilter('water'));
+
+setTimeout(() => {
+  store.dispatch(setTextFilter('bill'))
+}, 2000);
+
 console.log(store.getState());
 const jsx = (
   <Provider store={store}>
